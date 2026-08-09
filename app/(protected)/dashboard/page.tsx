@@ -167,9 +167,6 @@ export default function DashboardPage() {
                       <span className={cn("inline-flex shrink-0 items-center rounded-md border px-2.5 py-1 text-xs font-medium", env.color)}>
                         {env.label}
                       </span>
-                      <code className="hidden rounded-lg bg-[#111827] px-3 py-1.5 text-xs font-code text-[#94A3B8] lg:inline-block">
-                        {key.key.slice(0, 14)}...
-                      </code>
                       <Button
                         variant="ghost"
                         size="icon"
