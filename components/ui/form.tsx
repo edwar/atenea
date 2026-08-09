@@ -30,9 +30,9 @@ const FormFieldContext = React.createContext<FormFieldContextValue>(
 const FormField = ({
   ...props
 }: {
-  control: any
+  control: any // eslint-disable-line @typescript-eslint/no-explicit-any
   name: string
-  render: ({ field }: { field: any }) => React.ReactElement
+  render: ({ field }: { field: any }) => React.ReactElement // eslint-disable-line @typescript-eslint/no-explicit-any
 }) => {
   return (
     <FormFieldContext.Provider value={{ name: props.name }}>

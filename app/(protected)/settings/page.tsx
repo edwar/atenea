@@ -11,33 +11,25 @@ import QRCode from 'qrcode'
 
 export default function SettingsPage() {
   const { user } = useSession()
-  const [twoFAEnabled, setTwoFAEnabled] = useState(false)
   const [show2FASetup, setShow2FASetup] = useState(false)
   const [qrCodeUrl, setQrCodeUrl] = useState('')
   const [secret, setSecret] = useState('')
   const [verificationCode, setVerificationCode] = useState('')
   const [verifying, setVerifying] = useState(false)
   const [error, setError] = useState('')
-  const [sessions, setSessions] = useState<Array<{ id: string; device: string; browser: string; lastActive: string; current: boolean }>>([])
-  const [loadingSessions, setLoadingSessions] = useState(true)
   const [copiedSecret, setCopiedSecret] = useState(false)
 
-  useEffect(() => {
-    setTwoFAEnabled(user?.twoFactorEnabled || false)
-  }, [user])
-
-  useEffect(() => {
-    setSessions([
-      {
-        id: '1',
-        device: 'MacBook Pro',
-        browser: 'Chrome',
-        lastActive: 'Ahora',
-        current: true,
-      },
-    ])
-    setLoadingSessions(false)
-  }, [])
+  const twoFAEnabled = user?.twoFactorEnabled || false
+  const sessions = [
+    {
+      id: '1',
+      device: 'MacBook Pro',
+      browser: 'Chrome',
+      lastActive: 'Ahora',
+      current: true,
+    },
+  ]
+  const loadingSessions = false
 
   const setup2FA = useCallback(async () => {
     try {

@@ -10,7 +10,6 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Key, FolderOpen, Shield, ArrowRight, Plus, Clock, Copy } from 'lucide-react'
-import { formatDate } from '@/lib/utils'
 import { sileo } from 'sileo'
 
 const environmentConfig: Record<string, { label: string; color: string }> = {
@@ -120,7 +119,7 @@ export default function DashboardPage() {
     },
   ]
 
-  const copyKey = async (id: string, keyName: string) => {
+  const copyKey = async (id: string) => {
     try {
       const res = await fetch(`/api/keys/${id}`, {
         method: 'POST',
@@ -207,7 +206,7 @@ export default function DashboardPage() {
                         variant="ghost"
                         size="icon"
                         className="h-9 w-9 shrink-0 text-[#64748B] hover:text-[#F8FAFC] hover:bg-[#1A2035]"
-                        onClick={() => copyKey(key.id, key.key)}
+                        onClick={() => copyKey(key.id)}
                         aria-label={`Copiar ${key.name}`}
                       >
                         <Copy className="h-4 w-4" />

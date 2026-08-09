@@ -39,7 +39,6 @@ import { ExportImport } from '@/components/keys/export-import'
 import { MembersManager } from '@/components/projects/members-manager'
 import { formatDate } from '@/lib/utils'
 import Link from 'next/link'
-import { sileo } from 'sileo'
 
 export default function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
@@ -58,7 +57,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
     if (!project?.keys) return []
     if (filterEnvironment === 'ALL') return project.keys
     return project.keys.filter((key) => key.environment === filterEnvironment)
-  }, [project?.keys, filterEnvironment])
+  }, [project, filterEnvironment])
 
   const envCounts = useMemo(() => {
     if (!project?.keys) return {}
@@ -68,7 +67,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
       counts[env] = (counts[env] || 0) + 1
     }
     return counts
-  }, [project?.keys])
+  }, [project])
 
   if (isLoading) {
     return (
@@ -332,7 +331,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
           {editingKeyId && (() => {
             const keyToEdit = project.keys.find((k) => k.id === editingKeyId)
             if (!keyToEdit) return null
-            return <KeyEditForm apiKey={keyToEdit as any} onSuccess={() => setEditingKeyId(null)} />
+            return <KeyEditForm apiKey={keyToEdit} onSuccess={() => setEditingKeyId(null)} />
           })()}
         </DialogContent>
       </Dialog>

@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       description,
       key: `ak_${crypto.randomUUID().replace(/-/g, '').slice(0, 24)}`,
       value: encrypt(value),
-      environment: env as any,
+      environment: env as 'DEVELOPMENT' | 'STAGING' | 'QA' | 'PRODUCTION',
       projectId,
       ownerUserId: session.user.id,
     },
