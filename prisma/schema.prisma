@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ProjectRole {
+  OWNER
+  ADMIN
+  VIEWER
+}
+
+enum Environment {
+  DEVELOPMENT
+  STAGING
+  QA
+  PRODUCTION
+}
+
+model User {
+  id               String    @id @default(cuid())
+  email            String    @unique
+  name             String?
+  image            String?
+  emailVerified    Boolean   @default(false)
+  twoFactorEnabled Boolean   @default(false)
+  twoFactorSecret  String?
+  provider         String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  sessions         Session[]
+  accounts         Account[]
+  keys             ApiKey[]
+  auditLogs        AuditLog[]
+  projectMembers   ProjectMember[]
+  keyMembers       KeyMember[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  ipAddress String?
+  userAgent String?
+}
+
+model Account {
+  id                String    @id @default(cuid())
+  accountId         String
+  providerId        String
+  userId            String
+  accessToken       String?
+  refreshToken      String?
+  idToken           String?
+  scope             String?
+  accessTokenExpiresAt DateTime?
+  refreshTokenExpiresAt DateTime?
+  password          String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, accountId])
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Project {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  keys        ApiKey[]
+  members     ProjectMember[]
+}
+
+model ApiKey {
+  id           String      @id @default(cuid())
+  name         String
+  description  String?
+  key          String      @unique
+  value        String
+  environment  Environment @default(DEVELOPMENT)
+  projectId    String
+  ownerUserId  String
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  project      Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  owner        User         @relation(fields: [ownerUserId], references: [id])
+  auditLogs    AuditLog[]
+  members      KeyMember[]
+}
+
+model ProjectMember {
+  id        String      @id @default(cuid())
+  projectId String
+  userId    String
+  role      ProjectRole @default(VIEWER)
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+}
+
+model KeyMember {
+  id     String      @id @default(cuid())
+  keyId  String
+  userId String
+  role   ProjectRole @default(VIEWER)
+
+  key  ApiKey @relation(fields: [keyId], references: [id], onDelete: Cascade)
+  user User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([keyId, userId])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  action     String
+  entityType String
+  entityId   String
+  userId     String
+  keyId      String?
+  details    Json?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  user User      @relation(fields: [userId], references: [id])
+  key  ApiKey?   @relation(fields: [keyId], references: [id])
+
+  @@index([createdAt])
+  @@index([userId, createdAt])
+  @@index([entityType, entityId])
+}
