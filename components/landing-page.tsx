@@ -69,11 +69,6 @@ export default function LandingPage() {
             <span className="text-lg font-bold tracking-tight">Atenea</span>
           </Link>
           <div className="flex items-center gap-2 md:gap-3">
-            <Link href="/login" className="hidden sm:block">
-              <Button variant="ghost" className="cursor-pointer text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#1A2035]">
-                Iniciar Sesión
-              </Button>
-            </Link>
             <Link href="/login">
               <Button className="cursor-pointer bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-[#0A0E17] font-semibold shadow-lg shadow-amber-500/20">
                 Comenzar
