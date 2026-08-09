@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import { QueryProvider } from "@/providers/query-provider";
 import { Toaster } from "sileo";
+import { buildMetadata } from "@/lib/seo";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "Atenea - Gestión Segura de Claves",
-  description: "Administra tus API keys de forma segura con encriptación AES-256",
-  icons: {
-    icon: "/favicon.svg",
-  },
-};
+export const metadata: Metadata = buildMetadata();
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className="h-full antialiased">
+      <head>
+        <meta name="theme-color" content="#0A0E17" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body className="min-h-full flex flex-col">
         <QueryProvider>
           {children}

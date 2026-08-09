@@ -1,0 +1,28 @@
+{
+  "name": "Atenea — Gestión Segura de API Keys",
+  "short_name": "Atenea",
+  "description": "Gestiona todas tus API keys de forma segura y organizada. Encriptación AES-256, control de acceso y colaboración en equipo.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0E17",
+  "theme_color": "#0A0E17",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

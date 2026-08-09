@@ -1,5 +1,20 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Logo } from '@/components/logo'
+import { buildMetadata, siteConfig } from '@/lib/seo'
+
+export const metadata: Metadata = buildMetadata({
+  title: 'Términos de Servicio',
+  description:
+    'Términos de servicio de Atenea, la plataforma de gestión segura de API keys para desarrolladores.',
+  alternates: {
+    canonical: `${siteConfig.url}/terms`,
+  },
+  openGraph: {
+    type: 'website',
+    url: `${siteConfig.url}/terms`,
+  },
+})
 
 export default function TermsPage() {
   return (

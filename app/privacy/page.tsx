@@ -1,5 +1,20 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Logo } from '@/components/logo'
+import { buildMetadata, siteConfig } from '@/lib/seo'
+
+export const metadata: Metadata = buildMetadata({
+  title: 'Política de Privacidad',
+  description:
+    'Política de privacidad de Atenea. Cómo protegemos tus API keys con encriptación AES-256 y qué datos recopilamos.',
+  alternates: {
+    canonical: `${siteConfig.url}/privacy`,
+  },
+  openGraph: {
+    type: 'website',
+    url: `${siteConfig.url}/privacy`,
+  },
+})
 
 export default function PrivacyPage() {
   return (
