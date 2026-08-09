@@ -42,10 +42,14 @@ export function useAddProjectMember() {
       if (!res.ok) throw new Error(data.error || 'Failed to add member')
       return data
     },
-    onSuccess: (_, { projectId }) => {
+    onSuccess: (data, { projectId }) => {
       queryClient.invalidateQueries({ queryKey: ['projectMembers', projectId] })
       queryClient.invalidateQueries({ queryKey: ['project', projectId] })
-      sileo.success({ title: 'Miembro agregado exitosamente' })
+      if (data.message) {
+        sileo.success({ title: data.message })
+      } else {
+        sileo.success({ title: 'Miembro agregado exitosamente' })
+      }
     },
     onError: (error: Error) => {
       sileo.error({ title: error.message || 'Error al agregar miembro' })

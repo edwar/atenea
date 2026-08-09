@@ -1,21 +1,31 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, Loader2, Key } from 'lucide-react'
 import { Logo } from '@/components/logo'
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
+  const searchParams = useSearchParams()
+  const invitationToken = searchParams.get('invitation')
+
+  useEffect(() => {
+    if (invitationToken) {
+      localStorage.setItem('invitationToken', invitationToken)
+    }
+  }, [invitationToken])
 
   const handleGitHubLogin = async () => {
     setIsLoading(true)
     try {
+      const callbackURL = invitationToken ? `/dashboard?invitation=${invitationToken}` : '/dashboard'
       const res = await fetch('/api/auth/sign-in/social', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ provider: 'github', callbackURL: '/dashboard' }),
+        body: JSON.stringify({ provider: 'github', callbackURL }),
       })
       const data = await res.json()
       if (data.url) {
@@ -47,7 +57,7 @@ export default function LoginPage() {
           <Logo size="lg" className="mb-4" />
           <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Bienvenido de nuevo</h1>
           <p className="mt-2 text-sm text-[#94A3B8] md:text-base">
-            Inicia sesión para acceder a tus claves API
+            {invitationToken ? 'Crea tu cuenta para aceptar la invitación' : 'Inicia sesión para acceder a tus claves API'}
           </p>
         </div>
 

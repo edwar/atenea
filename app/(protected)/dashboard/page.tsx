@@ -1,6 +1,8 @@
 'use client'
 
+import { useEffect } from 'react'
 import Link from 'next/link'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { useKeys } from '@/hooks/useKeys'
 import { useProjects } from '@/hooks/useProjects'
@@ -60,8 +62,42 @@ function KeysSkeleton() {
 export default function DashboardPage() {
   const { data: keys, isLoading: keysLoading } = useKeys()
   const { data: projects, isLoading: projectsLoading } = useProjects()
+  const searchParams = useSearchParams()
+  const router = useRouter()
 
   const isLoading = keysLoading || projectsLoading
+
+  useEffect(() => {
+    const invitationToken = searchParams.get('invitation') || localStorage.getItem('invitationToken')
+    
+    if (invitationToken) {
+      const acceptInvitation = async () => {
+        try {
+          const res = await fetch(`/api/invitations/${invitationToken}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+          })
+          const data = await res.json()
+          
+          if (res.ok) {
+            sileo.success({ title: data.message || 'Invitación aceptada' })
+            if (data.projectId) {
+              router.push(`/projects/${data.projectId}`)
+            }
+          } else {
+            sileo.error({ title: data.error || 'Error al aceptar la invitación' })
+          }
+        } catch (error) {
+          console.error('Error accepting invitation:', error)
+          sileo.error({ title: 'Error al aceptar la invitación' })
+        } finally {
+          localStorage.removeItem('invitationToken')
+        }
+      }
+      
+      acceptInvitation()
+    }
+  }, [searchParams, router])
 
   const stats = [
     {

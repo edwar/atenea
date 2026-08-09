@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import LoginPage from '@/components/login-page'
 import { buildMetadata, siteConfig } from '@/lib/seo'
 
@@ -20,5 +21,9 @@ export const metadata: Metadata = buildMetadata({
 })
 
 export default function Page() {
-  return <LoginPage />
+  return (
+    <Suspense>
+      <LoginPage />
+    </Suspense>
+  )
 }
