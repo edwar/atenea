@@ -28,7 +28,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#0A0E17] px-6">
+    <div className="flex min-h-screen items-center justify-center bg-[#0A0E17] px-4 md:px-6">
       {/* Background glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] bg-amber-500/8 rounded-full blur-[100px]" />
 
@@ -36,23 +36,23 @@ export default function LoginPage() {
         {/* Back to home */}
         <Link
           href="/"
-          className="mb-10 inline-flex items-center gap-2 text-sm text-[#64748B] transition-colors hover:text-[#F8FAFC]"
+          className="mb-8 inline-flex items-center gap-2 text-sm text-[#64748B] transition-colors hover:text-[#F8FAFC]"
         >
           <ArrowLeft className="h-4 w-4" />
           Volver al inicio
         </Link>
 
         {/* Logo */}
-        <div className="mb-10">
+        <div className="mb-8">
           <Logo size="lg" className="mb-4" />
-          <h1 className="text-3xl font-bold tracking-tight">Bienvenido de nuevo</h1>
-          <p className="mt-2 text-[#94A3B8]">
+          <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Bienvenido de nuevo</h1>
+          <p className="mt-2 text-sm text-[#94A3B8] md:text-base">
             Inicia sesión para acceder a tus claves API
           </p>
         </div>
 
         {/* Card */}
-        <div className="rounded-2xl border border-[#1E293B] bg-[#111827] p-8 shadow-2xl shadow-black/30">
+        <div className="rounded-2xl border border-[#1E293B] bg-[#111827] p-6 md:p-8 shadow-2xl shadow-black/30">
           <Button
             onClick={handleGitHubLogin}
             className="h-13 w-full cursor-pointer bg-[#F8FAFC] text-[#0A0E17] hover:bg-[#E2E8F0] font-semibold text-base transition-all"

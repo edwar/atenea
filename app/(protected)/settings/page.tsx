@@ -128,7 +128,7 @@ export default function SettingsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Configuración</h1>
+        <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Configuración</h1>
         <p className="text-[#94A3B8]">
           Administra tu cuenta y preferencias
         </p>

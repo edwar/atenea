@@ -118,10 +118,10 @@ export function MembersManager({ projectId, currentUserId }: MembersManagerProps
           {members.map((member) => (
             <div
               key={member.id}
-              className="flex items-center justify-between rounded-xl border border-[#1E293B] bg-[#0A0E17] p-3"
+              className="flex flex-col gap-3 rounded-xl border border-[#1E293B] bg-[#0A0E17] p-3 sm:flex-row sm:items-center sm:justify-between"
             >
-              <div className="flex items-center gap-3">
-                <Avatar className="h-10 w-10">
+              <div className="flex min-w-0 items-center gap-3">
+                <Avatar className="h-10 w-10 shrink-0">
                   <AvatarImage src={member.user.image || undefined} alt={member.user.name || ''} />
                   <AvatarFallback className="bg-linear-to-br from-amber-400/20 to-amber-600/20 text-amber-400 text-sm font-medium">
                     {member.user.name
@@ -129,12 +129,12 @@ export function MembersManager({ projectId, currentUserId }: MembersManagerProps
                       : member.user.email[0].toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
-                <div className='w-30'>
-                  <p className="text-sm font-medium">{member.user.name || member.user.email}</p>
-                  <p className="text-xs text-[#64748B]">{member.user.email}</p>
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium">{member.user.name || member.user.email}</p>
+                  <p className="truncate text-xs text-[#64748B]">{member.user.email}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex shrink-0 items-center justify-between gap-2 sm:justify-end">
                 <span className={cn("inline-flex items-center gap-1 rounded-md border px-2 py-0.5 text-xs font-medium", roleColors[member.role])}>
                   {member.role === 'OWNER' && <Crown className="h-3.5 w-3.5" />}
                   {roleLabels[member.role] || member.role}

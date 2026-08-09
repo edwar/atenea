@@ -20,7 +20,7 @@ const environmentConfig: Record<string, { label: string; color: string }> = {
 
 function StatsSkeleton() {
   return (
-    <div className="grid gap-4 md:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
       {[1, 2, 3].map((i) => (
         <Card key={i} className="border-[#1E293B] bg-[#111827]">
           <CardContent className="p-5">
@@ -101,8 +101,8 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-[#94A3B8]">
+        <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Dashboard</h1>
+        <p className="text-sm text-[#94A3B8] md:text-base">
           Bienvenido a Atenea — Tu gestor seguro de API keys
         </p>
       </div>
@@ -110,7 +110,7 @@ export default function DashboardPage() {
       {isLoading ? (
         <StatsSkeleton />
       ) : (
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {stats.map((stat, i) => (
             <Card key={stat.title} className={cn("border-[#1E293B] bg-[#111827] animate-slide-up opacity-0", `stagger-${i + 1}`)}>
               <CardContent className="p-5">
@@ -130,7 +130,7 @@ export default function DashboardPage() {
       )}
 
       <Card className="border-[#1E293B] bg-[#111827]">
-        <div className="flex items-center justify-between p-5 border-b border-[#1E293B]">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1E293B] p-4 md:p-5">
           <div className="flex items-center gap-2">
             <Clock className="h-4 w-4 text-amber-400" />
             <h2 className="font-semibold">Claves Recientes</h2>
@@ -152,29 +152,30 @@ export default function DashboardPage() {
                 return (
                   <div
                     key={key.id}
-                    className="group flex items-center justify-between rounded-xl border border-[#1E293B] bg-[#0A0E17] p-4 transition-all hover:border-[#334155]"
+                    className="group flex flex-col gap-3 rounded-xl border border-[#1E293B] bg-[#0A0E17] p-4 transition-all hover:border-[#334155] sm:flex-row sm:items-center sm:justify-between"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-amber-400/20 to-amber-600/20">
+                    <div className="flex min-w-0 items-center gap-3">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-amber-400/20 to-amber-600/20">
                         <Key className="h-4 w-4 text-amber-400" />
                       </div>
-                      <div>
-                        <p className="font-medium">{key.name}</p>
-                        <p className="text-sm text-[#64748B]">{key.project.name}</p>
+                      <div className="min-w-0">
+                        <p className="truncate font-medium">{key.name}</p>
+                        <p className="truncate text-sm text-[#64748B]">{key.project.name}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <span className={cn("inline-flex items-center rounded-md border px-2.5 py-1 text-xs font-medium", env.color)}>
+                    <div className="flex items-center justify-between gap-3 sm:justify-end">
+                      <span className={cn("inline-flex shrink-0 items-center rounded-md border px-2.5 py-1 text-xs font-medium", env.color)}>
                         {env.label}
                       </span>
-                      <code className="rounded-lg bg-[#111827] px-3 py-1.5 text-xs font-code text-[#94A3B8]">
+                      <code className="hidden rounded-lg bg-[#111827] px-3 py-1.5 text-xs font-code text-[#94A3B8] lg:inline-block">
                         {key.key.slice(0, 14)}...
                       </code>
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 text-[#64748B] hover:text-[#F8FAFC] hover:bg-[#1A2035]"
+                        className="h-9 w-9 shrink-0 text-[#64748B] hover:text-[#F8FAFC] hover:bg-[#1A2035]"
                         onClick={() => copyKey(key.id, key.key)}
+                        aria-label={`Copiar ${key.name}`}
                       >
                         <Copy className="h-4 w-4" />
                       </Button>

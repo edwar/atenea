@@ -9,10 +9,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { LogOut, Settings } from 'lucide-react'
+import { LogOut, Settings, Menu } from 'lucide-react'
 import Link from 'next/link'
 
-export function Header() {
+interface HeaderProps {
+  onMenuClick?: () => void
+}
+
+export function Header({ onMenuClick }: HeaderProps) {
   const { user } = useSession()
 
   const initials = user?.name
@@ -24,8 +28,19 @@ export function Header() {
     : user?.email?.[0]?.toUpperCase() || '?'
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[#1E293B] bg-[#0A0E17]/80 backdrop-blur-xl px-6">
-      <div />
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[#1E293B] bg-[#0A0E17]/80 backdrop-blur-xl px-4 md:px-6">
+      <div className="flex items-center gap-3">
+        {onMenuClick && (
+          <button
+            onClick={onMenuClick}
+            aria-label="Abrir menú"
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-[#94A3B8] hover:bg-[#111827] hover:text-[#F8FAFC] md:hidden"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+        )}
+        <div className="hidden md:block" />
+      </div>
       <DropdownMenu>
         <DropdownMenuTrigger className="relative flex h-9 w-9 items-center justify-center rounded-full border border-[#334155] bg-[#111827] transition-all hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/10">
           <Avatar className="h-8 w-8">

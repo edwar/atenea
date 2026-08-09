@@ -107,8 +107,8 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
   return (
     <div className="space-y-6">
-      <div className="flex items-start justify-between">
-        <div>
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div className="min-w-0">
           <Link
             href="/projects"
             className="mb-4 inline-flex items-center gap-2 text-sm text-[#64748B] transition-colors hover:text-[#F8FAFC]"
@@ -117,28 +117,28 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
             Volver
           </Link>
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-amber-400/20 to-amber-600/20">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-linear-to-br from-amber-400/20 to-amber-600/20">
               <FolderOpen className="h-6 w-6 text-amber-400" />
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <h1 className="text-3xl font-bold tracking-tight">{project.name}</h1>
+                <h1 className="truncate text-2xl font-bold tracking-tight md:text-3xl">{project.name}</h1>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 text-[#64748B] hover:text-[#F8FAFC] hover:bg-[#1A2035]"
+                  className="h-8 w-8 shrink-0 text-[#64748B] hover:text-[#F8FAFC] hover:bg-[#1A2035]"
                   onClick={() => setShowEditProjectDialog(true)}
                 >
                   <Pencil className="h-4 w-4" />
                 </Button>
               </div>
               {project.description && (
-                <p className="text-[#94A3B8]">{project.description}</p>
+                <p className="text-sm text-[#94A3B8] md:text-base">{project.description}</p>
               )}
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 md:gap-3">
           <ExportImport projectId={id} projectName={project.name} />
           <Button
             onClick={() => setShowCreateKeyDialog(true)}
@@ -183,38 +183,39 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
           <div className="space-y-3">
             {filteredKeys.map((key, i) => (
               <Card key={key.id} className={cn("group border-[#1E293B] bg-[#111827] transition-all hover:border-[#334155] animate-slide-up opacity-0", `stagger-${Math.min(i + 1, 5)}`)}>
-                <CardContent className="flex items-center justify-between p-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-amber-400/20 to-amber-600/20">
+                <CardContent className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-amber-400/20 to-amber-600/20">
                       <Key className="h-4 w-4 text-amber-400" />
                     </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <p className="font-medium">{key.name}</p>
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="truncate font-medium">{key.name}</p>
                         <EnvironmentBadge environment={key.environment} />
                       </div>
                       {key.description && (
-                        <p className="text-sm text-[#64748B]">{key.description}</p>
+                        <p className="truncate text-sm text-[#64748B]">{key.description}</p>
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <code className="rounded-lg bg-[#0A0E17] px-3 py-1.5 text-xs font-code text-[#94A3B8]">
+                  <div className="flex items-center justify-between gap-2 sm:justify-end sm:gap-3">
+                    <code className="hidden rounded-lg bg-[#0A0E17] px-3 py-1.5 text-xs font-code text-[#94A3B8] lg:inline-block">
                       {key.key.slice(0, 16)}...
                     </code>
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 text-[#64748B] hover:text-[#F8FAFC] hover:bg-[#1A2035]"
+                      className="h-9 w-9 shrink-0 text-[#64748B] hover:text-[#F8FAFC] hover:bg-[#1A2035]"
                       onClick={() => copyKeyValue.mutate({ id: key.id })}
+                      aria-label={`Copiar ${key.name}`}
                     >
                       <Copy className="h-4 w-4" />
                     </Button>
-                    <p className="text-xs text-[#64748B]">
+                    <p className="hidden text-xs text-[#64748B] sm:inline">
                       {formatDate(key.updatedAt)}
                     </p>
                     <DropdownMenu>
-                      <DropdownMenuTrigger className="flex h-8 w-8 items-center justify-center rounded-lg text-[#64748B] hover:text-[#F8FAFC] hover:bg-[#1A2035]">
+                      <DropdownMenuTrigger className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[#64748B] hover:text-[#F8FAFC] hover:bg-[#1A2035]">
                         <MoreVertical className="h-4 w-4" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="border-[#1E293B] bg-[#111827]">
@@ -284,7 +285,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
       {/* Create Key Dialog */}
       <Dialog open={showCreateKeyDialog} onOpenChange={setShowCreateKeyDialog}>
-        <DialogContent className="max-w-2xl border-[#1E293B] bg-[#111827]">
+        <DialogContent className="sm:max-w-2xl border-[#1E293B] bg-[#111827]">
           <DialogHeader>
             <DialogTitle>Crear Nueva Clave</DialogTitle>
             <DialogDescription className="text-[#94A3B8]">
@@ -310,7 +311,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
       {/* View Key Dialog */}
       <Dialog open={!!viewingKeyId} onOpenChange={() => setViewingKeyId(null)}>
-        <DialogContent className="max-w-2xl border-[#1E293B] bg-[#111827]">
+        <DialogContent className="sm:max-w-2xl border-[#1E293B] bg-[#111827]">
           <DialogHeader>
             <DialogTitle>Detalle de Clave</DialogTitle>
           </DialogHeader>
@@ -320,7 +321,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
       {/* Edit Key Dialog */}
       <Dialog open={!!editingKeyId} onOpenChange={() => setEditingKeyId(null)}>
-        <DialogContent className="max-w-2xl border-[#1E293B] bg-[#111827]">
+        <DialogContent className="sm:max-w-2xl border-[#1E293B] bg-[#111827]">
           <DialogHeader>
             <DialogTitle>Editar Clave</DialogTitle>
             <DialogDescription className="text-[#94A3B8]">

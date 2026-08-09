@@ -48,10 +48,10 @@ export default function AuditPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Historial</h1>
-          <p className="text-[#94A3B8]">
+          <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Historial</h1>
+          <p className="text-sm text-[#94A3B8] md:text-base">
             Registro de actividades en tu cuenta
           </p>
         </div>

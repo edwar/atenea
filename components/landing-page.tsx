@@ -63,12 +63,17 @@ export default function LandingPage() {
     <div className="min-h-screen bg-[#0A0E17] text-[#F8FAFC] overflow-hidden">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-[#1E293B]/50 bg-[#0A0E17]/70 backdrop-blur-2xl">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2.5">
             <Logo size="md" />
             <span className="text-lg font-bold tracking-tight">Atenea</span>
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
+            <Link href="/login" className="hidden sm:block">
+              <Button variant="ghost" className="cursor-pointer text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#1A2035]">
+                Iniciar Sesión
+              </Button>
+            </Link>
             <Link href="/login">
               <Button className="cursor-pointer bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-[#0A0E17] font-semibold shadow-lg shadow-amber-500/20">
                 Comenzar
@@ -80,7 +85,7 @@ export default function LandingPage() {
       </header>
 
       {/* Hero */}
-      <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
+      <section className="relative pt-28 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
         {/* Background effects */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[800px] bg-amber-500/8 rounded-full blur-[150px]" />
         <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-rose-500/5 rounded-full blur-[120px]" />
@@ -92,11 +97,11 @@ export default function LandingPage() {
           backgroundSize: '64px 64px'
         }} />
 
-        <div className="relative mx-auto max-w-6xl px-6">
+        <div className="relative mx-auto max-w-6xl px-4 md:px-6">
 
           {/* Heading */}
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 animate-slide-up stagger-1 opacity-0">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 animate-slide-up stagger-1 opacity-0">
               Tus API keys,{' '}
               <span className="gradient-text">a salvo</span>
             </h1>
@@ -161,29 +166,29 @@ export default function LandingPage() {
               </div>
 
               {/* Dashboard content */}
-              <div className="p-6">
+              <div className="p-4 md:p-6">
                 {/* Stats row */}
-                <div className="grid grid-cols-3 gap-4 mb-6">
-                  <div className="rounded-xl bg-[#0A0E17] p-4 border border-[#1E293B]">
+                <div className="grid grid-cols-3 gap-2 mb-4 md:gap-4 md:mb-6">
+                  <div className="rounded-xl bg-[#0A0E17] p-2.5 md:p-4 border border-[#1E293B]">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs text-[#64748B]">Claves</span>
                       <Key className="h-4 w-4 text-amber-400" />
                     </div>
-                    <p className="text-2xl font-bold">12</p>
+                    <p className="text-xl md:text-2xl font-bold">12</p>
                   </div>
-                  <div className="rounded-xl bg-[#0A0E17] p-4 border border-[#1E293B]">
+                  <div className="rounded-xl bg-[#0A0E17] p-2.5 md:p-4 border border-[#1E293B]">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs text-[#64748B]">Proyectos</span>
                       <FolderOpen className="h-4 w-4 text-sky-400" />
                     </div>
-                    <p className="text-2xl font-bold">4</p>
+                    <p className="text-xl md:text-2xl font-bold">4</p>
                   </div>
-                  <div className="rounded-xl bg-[#0A0E17] p-4 border border-[#1E293B]">
+                  <div className="rounded-xl bg-[#0A0E17] p-2.5 md:p-4 border border-[#1E293B]">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs text-[#64748B]">Seguras</span>
                       <Shield className="h-4 w-4 text-emerald-400" />
                     </div>
-                    <p className="text-2xl font-bold">12</p>
+                    <p className="text-xl md:text-2xl font-bold">12</p>
                   </div>
                 </div>
 
@@ -196,23 +201,23 @@ export default function LandingPage() {
                   ].map((key, i) => (
                     <div
                       key={key.name}
-                      className="flex items-center justify-between rounded-xl bg-[#0A0E17] border border-[#1E293B] p-4 hover:border-[#334155] transition-colors"
+                      className="flex items-center justify-between gap-2 rounded-xl bg-[#0A0E17] border border-[#1E293B] p-3 md:p-4 hover:border-[#334155] transition-colors"
                       style={{ animationDelay: `${i * 0.1 + 1.2}s` }}
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-500/10">
+                      <div className="flex min-w-0 items-center gap-3">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10">
                           <Key className="h-4 w-4 text-amber-400" />
                         </div>
-                        <div>
-                          <p className="text-sm font-medium">{key.name}</p>
-                          <p className="text-xs text-[#64748B]">{key.project}</p>
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-medium">{key.name}</p>
+                          <p className="truncate text-xs text-[#64748B]">{key.project}</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
+                      <div className="flex shrink-0 items-center gap-2 md:gap-3">
                         <span className={`text-xs px-2 py-1 rounded-full bg-${key.color}-500/10 text-${key.color}-400`}>
                           {key.env}
                         </span>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-[#64748B] hover:text-[#F8FAFC]">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0 text-[#64748B] hover:text-[#F8FAFC]">
                           <Copy className="h-4 w-4" />
                         </Button>
                       </div>
@@ -245,7 +250,7 @@ export default function LandingPage() {
 
       {/* Features */}
       <section id="features" className="py-24 border-t border-[#1E293B]/50">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Todo lo que necesitas
@@ -277,7 +282,7 @@ export default function LandingPage() {
 
       {/* CTA */}
       <section className="py-24 border-t border-[#1E293B]/50">
-        <div className="mx-auto max-w-4xl px-6 text-center">
+        <div className="mx-auto max-w-4xl px-4 md:px-6 text-center">
           <div className="relative rounded-3xl border border-amber-500/20 bg-linear-to-br from-amber-500/10 via-[#111827] to-[#111827] p-12 md:p-16 overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px]" />
             <div className="relative">
@@ -303,7 +308,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="py-8 border-t border-[#1E293B]/50">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 md:flex-row">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 md:px-6 md:flex-row">
           <div className="flex items-center gap-2">
             <Logo size="sm" />
             <span className="font-semibold">Atenea</span>

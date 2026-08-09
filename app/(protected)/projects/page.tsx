@@ -54,10 +54,10 @@ export default function ProjectsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Proyectos</h1>
-          <p className="text-[#94A3B8]">
+          <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Proyectos</h1>
+          <p className="text-sm text-[#94A3B8] md:text-base">
             Selecciona un proyecto para ver sus claves
           </p>
         </div>
