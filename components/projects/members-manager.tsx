@@ -141,7 +141,7 @@ export function MembersManager({ projectId, currentUserId }: MembersManagerProps
                 </span>
                 {canEdit && member.userId !== currentUserId && member.role !== 'OWNER' && (
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="flex h-7 w-7 items-center justify-center rounded-md text-[#64748B] hover:text-[#F8FAFC] hover:bg-[#1A2035]">
+                    <DropdownMenuTrigger className="flex h-7 w-7 items-center justify-center rounded-md text-[#64748B] hover:text-[#F8FAFC] hover:bg-[#1A2035]" aria-label={`Opciones para ${member.user.name || member.user.email}`}>
                       <MoreVertical className="h-3.5 w-3.5" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="border-[#1E293B] bg-[#111827]">

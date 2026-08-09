@@ -128,6 +128,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                   size="icon"
                   className="h-8 w-8 shrink-0 text-[#64748B] hover:text-[#F8FAFC] hover:bg-[#1A2035]"
                   onClick={() => setShowEditProjectDialog(true)}
+                  aria-label="Editar proyecto"
                 >
                   <Pencil className="h-4 w-4" />
                 </Button>

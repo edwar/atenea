@@ -212,7 +212,7 @@ export default function LandingPage() {
                         <span className={`text-xs px-2 py-1 rounded-full bg-${key.color}-500/10 text-${key.color}-400`}>
                           {key.env}
                         </span>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0 text-[#64748B] hover:text-[#F8FAFC]">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0 text-[#64748B] hover:text-[#F8FAFC]" aria-label="Copiar clave de ejemplo">
                           <Copy className="h-4 w-4" />
                         </Button>
                       </div>

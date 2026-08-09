@@ -208,6 +208,7 @@ export default function SettingsPage() {
                           size="icon"
                           onClick={copySecret}
                           className="cursor-pointer shrink-0"
+                          aria-label={copiedSecret ? 'Copiado' : 'Copiar clave secreta'}
                         >
                           {copiedSecret ? (
                             <Check className="h-4 w-4 text-emerald-400" />
