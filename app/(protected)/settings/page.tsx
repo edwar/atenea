@@ -6,11 +6,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Shield, Key, User, Monitor, Smartphone, Globe, Copy, Check } from 'lucide-react'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import QRCode from 'qrcode'
 
 export default function SettingsPage() {
   const { user } = useSession()
+  const [twoFAEnabled, setTwoFAEnabled] = useState(user?.twoFactorEnabled || false)
   const [show2FASetup, setShow2FASetup] = useState(false)
   const [qrCodeUrl, setQrCodeUrl] = useState('')
   const [secret, setSecret] = useState('')
@@ -19,7 +20,6 @@ export default function SettingsPage() {
   const [error, setError] = useState('')
   const [copiedSecret, setCopiedSecret] = useState(false)
 
-  const twoFAEnabled = user?.twoFactorEnabled || false
   const sessions = [
     {
       id: '1',
